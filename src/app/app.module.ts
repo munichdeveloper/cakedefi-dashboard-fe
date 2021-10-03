@@ -9,13 +9,19 @@ import {HighchartsChartModule} from "highcharts-angular";
 import {registerLocaleData} from '@angular/common';
 import localeDe from '@angular/common/locales/de';
 import localeDeExtra from '@angular/common/locales/extra/de';
+import {FiledropperComponent} from './filedropper/filedropper.component';
+import {DndDirective} from './dnd.directive';
+import {ProgressComponent} from './progress/progress.component';
 
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
 @NgModule({
     declarations: [
         AppComponent,
-        DashboardComponent
+        DashboardComponent,
+        FiledropperComponent,
+        DndDirective,
+        ProgressComponent
     ],
     imports: [
         BrowserModule,
