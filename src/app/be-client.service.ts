@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpEvent, HttpRequest} from "@angular/common/http";
+import {HttpClient, HttpEvent, HttpParams, HttpRequest} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {SearchResult} from "./tx.service";
 
 @Injectable({
     providedIn: 'root'
@@ -13,13 +14,13 @@ export class BeClientService {
 
     SERVER_URL = '/api';
 
-    public getLMRewardsPerDayAndAsset(): Observable<any> {
-        return this.httpClient.get<any>(this.SERVER_URL + '/stat/lmrewardspda');
+    public getLMRewardsPerDayAndAsset(from: any, to: any): Observable<any> {
+        return this.httpClient.get<any>(this.SERVER_URL + `/stat/lmrewardspda/${from}/${to}`);
     }
 
-    // public uploadReport(files: any): Observable<any> {
-    //     return this.httpClient.post<any>(this.SERVER_URL + '/report/uploadReport', files);
-    // }
+    public getLMRewardsSummary(): Observable<any> {
+        return this.httpClient.get<any>(this.SERVER_URL + '/stat/lmrewardssum');
+    }
 
     public uploadReport(file: File): Observable<HttpEvent<{}>> {
         const data: FormData = new FormData();
@@ -29,6 +30,18 @@ export class BeClientService {
             responseType: 'text'
         });
         return this.httpClient.request(newRequest);
+    }
+
+    public queryTransactions(page: number, size: number, operation: string | null = null): Observable<SearchResult> {
+        let params = new HttpParams();
+        params = params.append('page', page);
+        params = params.append('size', size);
+
+        if (operation) {
+            params = params.append('operation', operation);
+        }
+
+        return this.httpClient.get<SearchResult>(`${this.SERVER_URL}/tx`, {params});
     }
 
 }

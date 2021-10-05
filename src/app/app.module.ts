@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -12,6 +12,8 @@ import localeDeExtra from '@angular/common/locales/extra/de';
 import {FiledropperComponent} from './filedropper/filedropper.component';
 import {DndDirective} from './dnd.directive';
 import {ProgressComponent} from './progress/progress.component';
+import {DbTxTableComponent} from './dashboard/db-tx-table/db-tx-table.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
@@ -21,15 +23,19 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
         DashboardComponent,
         FiledropperComponent,
         DndDirective,
-        ProgressComponent
+        ProgressComponent,
+        DbTxTableComponent
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        HighchartsChartModule
+        HighchartsChartModule,
+        NgbModule
     ],
-    providers: [],
+    providers: [
+        {provide: LOCALE_ID, useValue: "de-DE"},
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

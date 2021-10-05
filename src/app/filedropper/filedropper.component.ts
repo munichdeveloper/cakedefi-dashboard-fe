@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {BeClientService} from "../be-client.service";
 
 @Component({
@@ -7,6 +7,9 @@ import {BeClientService} from "../be-client.service";
     styleUrls: ['./filedropper.component.css']
 })
 export class FiledropperComponent implements OnInit {
+
+    @Output()
+    public fileUploaded$ = new EventEmitter();
 
     // @ts-ignore
     @ViewChild("fileDropRef", {static: false}) fileDropEl: ElementRef;
@@ -21,8 +24,8 @@ export class FiledropperComponent implements OnInit {
     /**
      * on file drop handler
      */
-    onFileDropped($event: any) {
-        this.prepareFilesList($event.target.files);
+    onFileDropped(files: any) {
+        this.prepareFilesList(files);
     }
 
     /**
@@ -62,47 +65,19 @@ export class FiledropperComponent implements OnInit {
         this.files.splice(index, 1);
     }
 
-
-    /**
-     * Simulate the upload process
-     */
-    uploadFilesSimulator(index: number) {
-        setTimeout(() => {
-            if (index === this.files.length) {
-                return;
-            } else {
-                const progressInterval = setInterval(() => {
-                    if (this.files[index].progress === 100) {
-                        clearInterval(progressInterval);
-                        this.uploadFilesSimulator(index + 1);
-                    } else {
-                        this.files[index].progress += 5;
-                    }
-                }, 200);
-            }
-        }, 1000);
-    }
-
-    uploadReport(files: any) {
-        this.beClientService.uploadReport(files).subscribe();
-    }
-
     /**
      * Convert Files list to normal array list
      * @param files (Files List)
      */
     prepareFilesList(files: FileList | null) {
-        // for (const item of files) {
-        //     item.progress = 0;
-        //     this.files.push(item);
-        // }
-        // this.fileDropEl.nativeElement.value = "";
         // @ts-ignore
         console.log(files);
         if (files) {
-            this.uploadReport(files[0]);
+            this.beClientService.uploadReport(files[0]).subscribe(() => {
+                // done
+                this.fileUploaded$.next();
+            });
         }
-        // this.uploadFilesSimulator(0);
     }
 
 }

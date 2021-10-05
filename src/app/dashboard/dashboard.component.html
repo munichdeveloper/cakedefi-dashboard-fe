@@ -1,4 +1,41 @@
-<highcharts-chart [oneToOne]="true" [constructorType]="chartConstructor" [callbackFunction]="chartCallback"
-                  [Highcharts]="Highcharts" [(update)]="updateFlag" [options]="chartOptions"
-                  class="card"></highcharts-chart>
-<app-filedropper></app-filedropper>
+<div class="container">
+    <div class="row mb-2">
+        <div class="col">
+            <div class="card">
+                <highcharts-chart [oneToOne]="true" [constructorType]="chartConstructor"
+                                  [callbackFunction]="chartCallback"
+                                  [Highcharts]="Highcharts" [(update)]="updateFlag" [options]="chartOptions"
+                                  class="card"></highcharts-chart>
+            </div>
+
+        </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col">
+            <div class="card">
+                <div class="lm-summary">
+                    <h2>Summary Liquidity Mining rewards</h2>
+                </div>
+                <div class="lm-row">
+                    Summe bisheriger Verdienst DFI in Euro: <b>{{sumFiat}} €</b>
+                </div>
+                <div class="lm-row">
+                    Summe bisheriger Verdienst DFI: <b>{{sumAmount}}</b>
+                </div>
+                <div class="lm-row">
+                    Average liquidity mining rewards per day: <b>{{avgReward}} € (during {{days}} days)</b>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <app-db-tx-table></app-db-tx-table>
+
+    <div class="row mb-2">
+        <div class="col">
+            <div class="card">
+                <app-filedropper (fileUploaded$)="onFileUploaded()"></app-filedropper>
+            </div>
+        </div>
+    </div>
+</div>
