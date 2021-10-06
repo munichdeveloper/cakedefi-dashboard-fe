@@ -14,6 +14,7 @@ import {DndDirective} from './dnd.directive';
 import {ProgressComponent} from './progress/progress.component';
 import {DbTxTableComponent} from './dashboard/db-tx-table/db-tx-table.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import {FormsModule} from "@angular/forms";
 
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 
@@ -31,7 +32,8 @@ registerLocaleData(localeDe, 'de-DE', localeDeExtra);
         AppRoutingModule,
         HttpClientModule,
         HighchartsChartModule,
-        NgbModule
+        NgbModule,
+        FormsModule
     ],
     providers: [
         {provide: LOCALE_ID, useValue: "de-DE"},

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpEvent, HttpParams, HttpRequest} from "@angular/common/http";
-import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {SearchResult} from "./tx.service";
 
@@ -9,7 +8,7 @@ import {SearchResult} from "./tx.service";
 })
 export class BeClientService {
 
-    constructor(private httpClient: HttpClient, private router: Router) {
+    constructor(private httpClient: HttpClient) {
     }
 
     SERVER_URL = '/api';
@@ -42,6 +41,10 @@ export class BeClientService {
         }
 
         return this.httpClient.get<SearchResult>(`${this.SERVER_URL}/tx`, {params});
+    }
+
+    public getAvailableOperations(): Observable<string[]> {
+        return this.httpClient.get<any>(this.SERVER_URL + '/tx/enumeration');
     }
 
 }

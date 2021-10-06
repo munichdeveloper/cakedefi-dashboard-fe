@@ -20,7 +20,7 @@ export interface SearchResult {
 interface State {
     page: number;
     pageSize: number;
-    searchTerm: string;
+    operation: string;
     // sortColumn: SortColumn;
     // sortDirection: SortDirection;
 }
@@ -38,7 +38,7 @@ export class TxService {
     private _state: State = {
         page: 1,
         pageSize: 100,
-        searchTerm: '',
+        operation: '',
         // sortColumn: '',
         // sortDirection: ''
     };
@@ -78,8 +78,8 @@ export class TxService {
         return this._state.pageSize;
     }
 
-    get searchTerm() {
-        return this._state.searchTerm;
+    get operation() {
+        return this._state.operation;
     }
 
     set page(page: number) {
@@ -90,8 +90,8 @@ export class TxService {
         this._set({pageSize});
     }
 
-    set searchTerm(searchTerm: string) {
-        this._set({searchTerm});
+    set operation(operation: string) {
+        this._set({operation});
     }
 
     // set sortColumn(sortColumn: SortColumn) { this._set({sortColumn}); }
@@ -104,7 +104,7 @@ export class TxService {
 
     private _search(): Observable<SearchResult> {
         // const {sortColumn, sortDirection, pageSize, page, searchTerm} = this._state;
-        const {pageSize, page, searchTerm} = this._state;
-        return this.beClient.queryTransactions(page - 1, pageSize);
+        const {pageSize, page, operation} = this._state;
+        return this.beClient.queryTransactions(page - 1, pageSize, operation);
     }
 }
