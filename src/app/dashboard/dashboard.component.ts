@@ -52,7 +52,10 @@ export class DashboardComponent implements OnInit {
                 let assetName = this.point.series.userOptions.name;
                 return assetName + ' @ ' + this.x + ": <b>" + this.y + ' €</b>';
             }
-        }
+        },
+        colors: [
+            'white', '#e14eca', 'limegreen',
+        ]
     };
     updateFlag = false;
     chartConstructor = "chart";

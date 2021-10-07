@@ -15,6 +15,9 @@ import {ProgressComponent} from './progress/progress.component';
 import {DbTxTableComponent} from './dashboard/db-tx-table/db-tx-table.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FormsModule} from "@angular/forms";
+import * as Highcharts from 'highcharts';
+// @ts-ignore
+require('highcharts/themes/dark-blue')(Highcharts);
 
 registerLocaleData(localeDe, 'de-DE', localeDeExtra);
 

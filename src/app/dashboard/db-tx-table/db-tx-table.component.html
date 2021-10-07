@@ -1,17 +1,17 @@
 <div class="container pt-3">
 
-    <div class="row bg-dark p-2">
+    <div class="row p-2" style="background-color: #27293d">
         <div class="col p-2">
-            <button (click)="toggleFilterCollapsed()" type="button" class="btn btn-light">Filter</button>
+            <button (click)="toggleFilterCollapsed()" type="button" class="btn btn-primary">Filter</button>
         </div>
     </div>
-    <div class="row bg-dark" *ngIf="!filterCollapsed">
+    <div class="row" *ngIf="!filterCollapsed" style="background-color: #27293d">
 
         <div class="col">
 
             <div class="form-group">
                 <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle w-100"
+                    <button class="btn btn-outline-primary dropdown-toggle w-100"
                             style="text-align: right !important;cursor: pointer" type="button"
                             id="dropdownMenuOperation"
                             (click)="toggleOperationDropDownOpen()">
@@ -20,14 +20,15 @@
                     <ul *ngIf="operationDropDownOpen" class="dropdown-menu w-100" style="display: block !important;"
                         aria-labelledby="dropdownMenuOperation">
                         <li *ngFor="let op of availableOperations$ | async">
-                            <a class="dropdown-item" (click)="setSelectedOperation(op)"><strong>{{op}}</strong></a>
+                            <a style="color: black" class="dropdown-item"
+                               (click)="setSelectedOperation(op)"><strong>{{op}}</strong></a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="form-group">
                 <div class="dropdown">
-                    <button class="btn btn-light dropdown-toggle w-100"
+                    <button class="btn btn-outline-primary dropdown-toggle w-100"
                             style="text-align: right !important;cursor: pointer" type="button"
                             id="dropdownMenuAsset"
                             (click)="toggleAssetDropDownOpen()">
@@ -36,7 +37,8 @@
                     <ul *ngIf="assetDropDownOpen" class="dropdown-menu w-100" style="display: block !important;"
                         aria-labelledby="dropdownMenuAsset">
                         <li *ngFor="let a of availableAssets$ | async">
-                            <a class="dropdown-item" (click)="setSelectedAsset(a)"><strong>{{a}}</strong></a>
+                            <a style="color: black" class="dropdown-item"
+                               (click)="setSelectedAsset(a)"><strong>{{a}}</strong></a>
                         </li>
                     </ul>
                 </div>
