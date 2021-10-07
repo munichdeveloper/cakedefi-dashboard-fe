@@ -31,7 +31,7 @@ export class BeClientService {
         return this.httpClient.request(newRequest);
     }
 
-    public queryTransactions(page: number, size: number, operation: string | null = null): Observable<SearchResult> {
+    public queryTransactions(page: number, size: number, operation: string | null = null, asset: string | null): Observable<SearchResult> {
         let params = new HttpParams();
         params = params.append('page', page);
         params = params.append('size', size);
@@ -40,11 +40,19 @@ export class BeClientService {
             params = params.append('operation', operation);
         }
 
+        if (asset) {
+            params = params.append('asset', asset);
+        }
+
         return this.httpClient.get<SearchResult>(`${this.SERVER_URL}/tx`, {params});
     }
 
     public getAvailableOperations(): Observable<string[]> {
-        return this.httpClient.get<any>(this.SERVER_URL + '/tx/enumeration');
+        return this.httpClient.get<any>(this.SERVER_URL + '/tx/enumeration/operations');
+    }
+
+    public getAvailableAssets(): Observable<string[]> {
+        return this.httpClient.get<any>(this.SERVER_URL + '/tx/enumeration/assets');
     }
 
 }

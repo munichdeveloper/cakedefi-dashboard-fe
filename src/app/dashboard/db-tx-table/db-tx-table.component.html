@@ -1,53 +1,54 @@
-<div class="container">
+<div class="container pt-3">
 
-    <div class="row bg-dark">
+    <div class="row bg-dark p-2">
         <div class="col p-2">
             <button (click)="toggleFilterCollapsed()" type="button" class="btn btn-light">Filter</button>
         </div>
     </div>
     <div class="row bg-dark" *ngIf="!filterCollapsed">
 
-        <div class="col-sm-6">
+        <div class="col">
 
             <div class="form-group">
                 <div class="dropdown">
                     <button class="btn btn-light dropdown-toggle w-100"
-                            style="text-align: left !important;cursor: pointer" type="button" id="dropdownMenuButton1"
+                            style="text-align: right !important;cursor: pointer" type="button"
+                            id="dropdownMenuOperation"
                             (click)="toggleOperationDropDownOpen()">
-                        {{selectedOperation}}
+                        <strong>{{selectedOperation}}</strong>
                     </button>
                     <ul *ngIf="operationDropDownOpen" class="dropdown-menu w-100" style="display: block !important;"
-                        aria-labelledby="dropdownMenuButton1">
-                        <li *ngFor="let op of availableOperations$ | async"><a class="dropdown-item"
-                                                                               (click)="setSelectedOperation(op)">{{op}}</a>
+                        aria-labelledby="dropdownMenuOperation">
+                        <li *ngFor="let op of availableOperations$ | async">
+                            <a class="dropdown-item" (click)="setSelectedOperation(op)"><strong>{{op}}</strong></a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="form-group">
-                <label for="lname">Last Name</label>
-                <input type="text" class="form-control" name="lname" id="lname"
-                       placeholder="Enter Last Name" required>
+                <div class="dropdown">
+                    <button class="btn btn-light dropdown-toggle w-100"
+                            style="text-align: right !important;cursor: pointer" type="button"
+                            id="dropdownMenuAsset"
+                            (click)="toggleAssetDropDownOpen()">
+                        <strong>{{selectedAsset}}</strong>
+                    </button>
+                    <ul *ngIf="assetDropDownOpen" class="dropdown-menu w-100" style="display: block !important;"
+                        aria-labelledby="dropdownMenuAsset">
+                        <li *ngFor="let a of availableAssets$ | async">
+                            <a class="dropdown-item" (click)="setSelectedAsset(a)"><strong>{{a}}</strong></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" name="email"
-                       placeholder="Enter Email" required>
+                <button type="button" (click)="setFilter()" class="btn btn-info pull-right"><strong>Go!</strong>
+                </button>
+                <button type="button" (click)="resetFilter()" class="btn btn-outline-info pull-right ml-2"><strong>Reset
+                    all filters</strong>
+                </button>
             </div>
-            <div class="form-group">
-                <label for="contactno">Contact No.</label>
-                <input type="contactno" class="form-control" id="contactno" name="contactno"
-                       placeholder="Enter Contact No." required>
-            </div>
-
-            <div class="form-group">
-                <button type="button" (click)="setFilter()" class="btn btn-info pull-right">Set filter</button>
-            </div>
-
-        </div>
-
-        <div class="col-sm-6">
-
 
         </div>
 
@@ -66,7 +67,7 @@
     <!--    </select>-->
 </div>
 
-<div class="row mb-2">
+<div class="row mb-2 pb-3">
     <div class="col">
         <div class="card">
 
@@ -85,11 +86,11 @@
                     <tbody>
                     <tr *ngFor="let t of tx$ | async">
                         <th scope="row">{{t.date | date:'shortDate'}}</th>
-                        <td>{{t.operation}}</td>
-                        <td>{{t.amount}}</td>
-                        <td>{{t.coinAsset}}</td>
-                        <td>{{t.fiatValue}}</td>
-                        <td>{{t.fiatCurrency}}</td>
+                        <td><strong>{{t.operation}}</strong></td>
+                        <td><strong>{{t.amount}}</strong></td>
+                        <td><strong>{{t.coinAsset}}</strong></td>
+                        <td><strong>{{t.fiatValue}}</strong></td>
+                        <td><strong>{{t.fiatCurrency}}</strong></td>
                     </tr>
                     </tbody>
                 </table>
@@ -98,14 +99,3 @@
         </div>
     </div>
 </div>
-
-<!--amount: 0-->
-<!--coinAsset: "DFI"-->
-<!--date: "2021-10-05T15:15:17"-->
-<!--fiatCurrency: "EUR"-->
-<!--fiatValue: 0-->
-<!--idRelatedReference: ""-->
-<!--idTransaction: ""-->
-<!--operation: "Freezer staking bonus"-->
-<!--reference: "6c71306b-310b-434d-bf8d-20132bff3a4c"-->
-<!--withdrawalAddress: ""-->

@@ -15,9 +15,17 @@ export class DbTxTableComponent {
     public total$: Observable<number>;
     public filterCollapsed = true;
 
+    // available data from backend
     public availableOperations$: Observable<string[]>;
+    public availableAssets$: Observable<string[]>;
+
+    // selected in dropdown
     public selectedOperation: string = 'Operation';
+    public selectedAsset: string = 'Coin / Asset';
+
+    // flag if dropdown is opened
     public operationDropDownOpen = false;
+    public assetDropDownOpen = false;
 
     constructor(public txService: TxService, private beClientService: BeClientService) {
         this.tx$ = this.txService.tx$;
@@ -26,11 +34,11 @@ export class DbTxTableComponent {
             this.beClientService.getAvailableOperations().pipe(
                 map(value => value.sort())
             );
+        this.availableAssets$ =
+            this.beClientService.getAvailableAssets().pipe(
+                map(value => value.sort())
+            );
     }
-
-    // private static onlyUnique(value: any, index: any, self: any) {
-    //     return self.indexOf(value) === index;
-    // }
 
     public toggleFilterCollapsed() {
         this.filterCollapsed = !this.filterCollapsed;
@@ -38,6 +46,16 @@ export class DbTxTableComponent {
 
     public toggleOperationDropDownOpen() {
         this.operationDropDownOpen = !this.operationDropDownOpen;
+        if (this.operationDropDownOpen) {
+            this.assetDropDownOpen = false;
+        }
+    }
+
+    public toggleAssetDropDownOpen() {
+        this.assetDropDownOpen = !this.assetDropDownOpen;
+        if (this.assetDropDownOpen) {
+            this.operationDropDownOpen = false;
+        }
     }
 
     public setSelectedOperation(op: string) {
@@ -45,8 +63,27 @@ export class DbTxTableComponent {
         this.operationDropDownOpen = false;
     }
 
+    public setSelectedAsset(a: string) {
+        this.selectedAsset = a;
+        this.assetDropDownOpen = false;
+    }
+
     public setFilter() {
-        console.log(this.selectedOperation);
-        this.txService.operation = this.selectedOperation;
+        if (this.selectedOperation != 'Operation') {
+            this.txService.operation = this.selectedOperation;
+        } else {
+            this.txService.operation = undefined;
+        }
+        if (this.selectedAsset != 'Coin / Asset') {
+            this.txService.asset = this.selectedAsset;
+        } else {
+            this.txService.asset = undefined;
+        }
+    }
+
+    resetFilter() {
+        this.selectedOperation = 'Operation';
+        this.selectedAsset = 'Coin / Asset';
+        this.setFilter();
     }
 }
