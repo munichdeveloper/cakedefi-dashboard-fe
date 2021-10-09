@@ -3,6 +3,7 @@ import {BeClientService} from "../be-client.service";
 import * as Highcharts from 'highcharts';
 import {DatePipe} from "@angular/common";
 import {BehaviorSubject, combineLatest} from "rxjs";
+import {TxService} from "../tx.service";
 
 @Component({
     selector: 'app-dashboard',
@@ -69,7 +70,7 @@ export class DashboardComponent implements OnInit {
     dateFrom$ = new BehaviorSubject<string>('1970-12-01');
     dateTo$ = new BehaviorSubject<string>('2099-01-13');
 
-    constructor(private client: BeClientService) {
+    constructor(private client: BeClientService, private txService: TxService) {
         const self = this;
 
         this.chartCallback = (chart: any) => {
@@ -95,13 +96,16 @@ export class DashboardComponent implements OnInit {
             });
 
             this.client.getLMRewardsSummary().subscribe(value => {
-                console.log(value);
-                this.sumFiat = value.sum_fiat;
-                this.sumAmount = value.sum_amount;
-                this.avgReward = value.fiat_lm_reward_per_day_fiat.toFixed(2);
-                this.days = value.days;
+                if (value) {
+                    this.sumFiat = value.sum_fiat;
+                    this.sumAmount = value.sum_amount;
+                    this.avgReward = value.fiat_lm_reward_per_day_fiat?.toFixed(2);
+                    this.days = value.days;
+                }
             });
 
+            // loads transactions after data has been loaded from report
+            this.txService._search$.next();
 
         });
     }

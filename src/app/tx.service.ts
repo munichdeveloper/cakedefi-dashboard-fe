@@ -32,7 +32,7 @@ interface State {
 export class TxService {
 
     private _loading$ = new BehaviorSubject<boolean>(true);
-    private _search$ = new Subject<void>();
+    public _search$ = new Subject<void>();
     private _tx$ = new BehaviorSubject<Transaction[]>([]);
     private _total$ = new BehaviorSubject<number>(0);
 
