@@ -1983,11 +1983,6 @@ bl@^4.1.0:
     inherits "^2.0.4"
     readable-stream "^3.4.0"
 
-black-dashboard@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/black-dashboard/-/black-dashboard-1.0.0.tgz#665f018631b8ad08c78fa5854dfaa0db599324fc"
-  integrity sha512-D2PoijLSVhOwv+9ujLxPwW6jtzhzdAOH8MaYs7wFQ2O+va0zyY+RpO+IEhKNCDGyHdGcXxDc7+IohtTapTxrAQ==
-
 body-parser@1.19.0, body-parser@^1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
